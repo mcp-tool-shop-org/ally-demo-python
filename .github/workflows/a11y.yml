@@ -1,10 +1,7 @@
 name: a11y
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   a11y:
@@ -27,35 +24,22 @@ jobs:
           pip install -e .
           pip install a11y-assist a11y-lint
 
-      # Generate cli.error.v0.1 JSON from demo CLI
       - name: Generate error JSON (network-timeout)
         run: |
           demo-cli network-timeout --json-out cli_error.json 2>/dev/null || true
 
-      # Validate the contract
       - name: Validate cli.error.v0.1 contract
         run: |
           a11y-lint validate cli_error.json
 
-      # Demonstrate all profiles (non-blocking, for visibility)
       - name: Demonstrate a11y-assist profiles
         run: |
-          echo "=== Low Vision Profile ==="
-          a11y-assist explain --json cli_error.json --profile lowvision
-          echo ""
-          echo "=== Screen Reader Profile ==="
-          a11y-assist explain --json cli_error.json --profile screen-reader
-          echo ""
-          echo "=== Dyslexia Profile ==="
-          a11y-assist explain --json cli_error.json --profile dyslexia
-          echo ""
-          echo "=== Plain Language Profile ==="
-          a11y-assist explain --json cli_error.json --profile plain-language
-          echo ""
-          echo "=== Cognitive Load Profile ==="
-          a11y-assist explain --json cli_error.json --profile cognitive-load
+          for profile in lowvision screen-reader dyslexia plain-language cognitive-load; do
+            echo "=== $profile Profile ==="
+            a11y-assist explain --json cli_error.json --profile $profile
+            echo ""
+          done
 
-      # Test all error scenarios emit valid JSON
       - name: Validate all error scenarios
         run: |
           for cmd in network-timeout config-missing auth-failed permission-denied validation-error; do
