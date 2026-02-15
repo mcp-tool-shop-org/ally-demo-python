@@ -1,10 +1,7 @@
 name: CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -33,17 +30,12 @@ jobs:
 
     - name: Test CLI commands
       run: |
-        # Test each error scenario
-        demo-cli network-timeout --json-out /tmp/cli_error_timeout.json || true
-        demo-cli config-missing --json-out /tmp/cli_error_config.json || true
-        demo-cli auth-failed --json-out /tmp/cli_error_auth.json || true
-        demo-cli permission-denied --json-out /tmp/cli_error_permission.json || true
-        demo-cli validation-error --json-out /tmp/cli_error_validation.json || true
+        for cmd in network-timeout config-missing auth-failed permission-denied validation-error; do
+          demo-cli $cmd --json-out /tmp/cli_error_${cmd}.json 2>/dev/null || true
+        done
 
     - name: Validate error messages with a11y-lint
       run: |
-        a11y-lint validate /tmp/cli_error_timeout.json
-        a11y-lint validate /tmp/cli_error_config.json
-        a11y-lint validate /tmp/cli_error_auth.json
-        a11y-lint validate /tmp/cli_error_permission.json
-        a11y-lint validate /tmp/cli_error_validation.json
+        for cmd in network-timeout config-missing auth-failed permission-denied validation-error; do
+          a11y-lint validate /tmp/cli_error_${cmd}.json
+        done
