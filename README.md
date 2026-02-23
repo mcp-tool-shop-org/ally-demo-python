@@ -1,5 +1,7 @@
 # Ally Demo (Python)
 
+[![CI](https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml/badge.svg)](https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml)
+
 A minimal Python CLI that emits **cli.error.v0.1** (ground truth) and demonstrates the full Ally pipeline:
 
 - `a11y-assist` (profiles: lowvision, cognitive-load, screen-reader, dyslexia, plain-language)
