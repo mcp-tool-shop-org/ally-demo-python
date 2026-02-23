@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ally-demo-python"
-version = "0.2.0"
+version = "0.2.1"
 description = "Reference integration for Ally (a11y-assist, a11y-lint, a11y-ci)"
 readme = "README.md"
 license = {text = "MIT"}
@@ -48,9 +48,9 @@ dev = [
 demo-cli = "demo_cli.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/mcp-tool-shop/ally-demo-python"
-Repository = "https://github.com/mcp-tool-shop/ally-demo-python"
-Issues = "https://github.com/mcp-tool-shop/ally-demo-python/issues"
+Homepage = "https://github.com/mcp-tool-shop-org/ally-demo-python"
+Repository = "https://github.com/mcp-tool-shop-org/ally-demo-python"
+Issues = "https://github.com/mcp-tool-shop-org/ally-demo-python/issues"
 
 [tool.setuptools.packages.find]
 include = ["demo_cli*"]
