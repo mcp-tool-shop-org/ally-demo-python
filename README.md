@@ -3,9 +3,7 @@
 </p>
 
 <p align="center">
-  
-            <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/ally-demo-python/readme.png"
-           alt="Ally Demo Python" width="400">
+  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/ally-demo-python/main/assets/logo-ally-demo-python.png" alt="Ally Demo Python" width="400">
 </p>
 
 <p align="center">
