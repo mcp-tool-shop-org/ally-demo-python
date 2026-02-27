@@ -8,6 +8,8 @@
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python"><img src="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python/branch/main/graph/badge.svg" alt="codecov"></a>
+  <a href="https://pypi.org/project/ally-demo-python/"><img src="https://img.shields.io/pypi/v/ally-demo-python" alt="PyPI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License"></a>
   <a href="https://mcp-tool-shop-org.github.io/ally-demo-python/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page"></a>
 </p>
@@ -113,6 +115,18 @@ That makes it easy to test the whole pipeline end-to-end.
    - `a11y-assist explain --json <file>`
    - or wrapper-first: `assist-run <command>` then `a11y-assist last`
 
+## Security & Privacy
+
+**Data touched:** demonstration error scenarios only — no real data is read or written beyond optional `--json-out` file output.
+
+**Data NOT touched:** no user credentials, no system files, no network calls (all errors are simulated). No telemetry is collected or sent.
+
+**Permissions:** filesystem write only for `--json-out` path specified by the user. See [SECURITY.md](SECURITY.md) for the full policy.
+
 ## License
 
 MIT
+
+---
+
+Built by <a href="https://mcp-tool-shop.github.io/">MCP Tool Shop</a>

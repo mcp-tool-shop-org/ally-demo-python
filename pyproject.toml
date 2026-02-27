@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ally-demo-python"
-version = "0.2.2"
+version = "1.0.0"
 description = "Reference integration for Ally (a11y-assist, a11y-lint, a11y-ci)"
 readme = "README.md"
 license = {text = "MIT"}
@@ -23,7 +23,7 @@ keywords = [
     "assistive-technology",
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
