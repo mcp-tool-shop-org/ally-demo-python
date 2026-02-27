@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
+  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.md">English</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
 </p>
 
 <p align="center">
@@ -8,6 +8,8 @@
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python"><img src="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python/branch/main/graph/badge.svg" alt="codecov"></a>
+  <a href="https://pypi.org/project/ally-demo-python/"><img src="https://img.shields.io/pypi/v/ally-demo-python" alt="PyPI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License"></a>
   <a href="https://mcp-tool-shop-org.github.io/ally-demo-python/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page"></a>
 </p>
@@ -58,19 +60,19 @@ a11y-lint validate /tmp/cli_error.json
 La CLI de démonstration comprend plusieurs scénarios d'erreur pour illustrer différents modèles :
 
 | Commande | ID de l'erreur | Description |
-| --------- | ---------- | ------------- |
+|---------|----------|-------------|
 | `demo-cli network-timeout` | DEMO.NETWORK.TIMEOUT | Dépassement du délai de la requête HTTP |
 | `demo-cli config-missing` | DEMO.CONFIG.MISSING | Fichier de configuration manquant |
-| `demo-cli auth-failed` | DEMO.AUTH.INVALID_TOKEN | Échec d'authentification |
+| `demo-cli auth-failed` | DEMO.AUTH.INVALID_TOKEN | Échec de l'authentification |
 | `demo-cli permission-denied` | DEMO.FS.PERMISSION_DENIED | Erreur de permission d'accès au fichier |
 | `demo-cli validation-error` | DEMO.VALIDATION.SCHEMA | Échec de la validation du schéma |
 
 Chaque commande :
-- Affiche une sortie lisible par l'utilisateur sur la sortie standard (stdout)
-- Écrit le JSON dans le chemin spécifié par `--json-out`
-- Génère du JSON sur la sortie d'erreur standard (stderr) pour la capture par les machines
+- Affiche un résultat lisible par l'utilisateur sur la sortie standard (stdout)
+- Écrit un fichier JSON au chemin spécifié avec l'option `--json-out`
+- Génère un JSON sur la sortie d'erreur standard (stderr) pour la capture par les machines
 
-## À quoi ressemble une bonne sortie
+## À quoi ressemble une bonne solution
 
 La CLI affiche un message lisible par l'utilisateur dans une structure prévisible :
 
@@ -98,7 +100,7 @@ La CLI génère également un JSON `cli.error.v0.1` valide pour la capture par l
 Cette démonstration génère intentionnellement :
 
 - Un espace de noms `id` stable (DEMO.*)
-- Des lignes de correction qui incluent une commande "Réexécuter :" contenant `--dry-run` (SAFE)
+- Des lignes qui incluent une commande "Re-run :" contenant `--dry-run` (SAFE)
 
 Cela facilite le test de l'ensemble du pipeline de bout en bout.
 
@@ -113,6 +115,18 @@ Cela facilite le test de l'ensemble du pipeline de bout en bout.
 - `a11y-assist explain --json <file>`
 - ou utilisez un wrapper : `assist-run <command>` puis `a11y-assist last`
 
+## Sécurité et confidentialité
+
+**Données traitées :** uniquement des scénarios d'erreur de démonstration. Aucune donnée réelle n'est lue ou écrite, à l'exception de la sortie facultative du fichier JSON via l'option `--json-out`.
+
+**Données NON traitées :** aucune information d'identification utilisateur, aucun fichier système, aucun appel réseau (toutes les erreurs sont simulées). Aucune télémétrie n'est collectée ou envoyée.
+
+**Permissions :** uniquement l'écriture sur le système de fichiers pour le chemin spécifié par l'utilisateur via l'option `--json-out`. Consultez le fichier [SECURITY.md](SECURITY.md) pour connaître la politique complète.
+
 ## Licence
 
 MIT
+
+---
+
+Créé par <a href="https://mcp-tool-shop.github.io/">MCP Tool Shop</a>

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
+  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.md">English</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
 </p>
 
 <p align="center">
@@ -8,6 +8,8 @@
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python"><img src="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python/branch/main/graph/badge.svg" alt="codecov"></a>
+  <a href="https://pypi.org/project/ally-demo-python/"><img src="https://img.shields.io/pypi/v/ally-demo-python" alt="PyPI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License"></a>
   <a href="https://mcp-tool-shop-org.github.io/ally-demo-python/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page"></a>
 </p>
@@ -15,7 +17,7 @@
 Una herramienta de línea de comandos (CLI) de Python minimalista que emite `cli.error.v0.1` (datos de referencia) y demuestra todo el flujo de trabajo de Ally:
 
 - `a11y-assist` (perfiles: baja visión, carga cognitiva, lector de pantalla, dislexia, lenguaje sencillo)
-- `a11y-lint` (validación + análisis)
+- `a11y-lint` (validar + escanear)
 - `a11y-ci` (control de calidad)
 
 Este repositorio es intencionalmente pequeño y sencillo. Es una integración de referencia.
@@ -58,7 +60,7 @@ a11y-lint validate /tmp/cli_error.json
 La CLI de demostración incluye varios escenarios de error para demostrar diferentes patrones:
 
 | Comando | ID de error | Descripción |
-| --------- | ---------- | ------------- |
+|---------|----------|-------------|
 | `demo-cli network-timeout` | DEMO.NETWORK.TIMEOUT | Tiempo de espera de la solicitud HTTP |
 | `demo-cli config-missing` | DEMO.CONFIG.MISSING | Archivo de configuración faltante |
 | `demo-cli auth-failed` | DEMO.AUTH.INVALID_TOKEN | Error de autenticación |
@@ -66,13 +68,13 @@ La CLI de demostración incluye varios escenarios de error para demostrar difere
 | `demo-cli validation-error` | DEMO.VALIDATION.SCHEMA | Error de validación del esquema |
 
 Cada comando:
-- Imprime una salida legible por humanos en la salida estándar (stdout).
-- Escribe JSON en la ruta especificada con `--json-out`.
-- Emite JSON a la salida de error estándar (stderr) para su procesamiento automático.
+- Imprime una salida legible para humanos en la salida estándar (stdout)
+- Escribe JSON en la ruta especificada con `--json-out`
+- Emite JSON a la salida de error estándar (stderr) para su procesamiento automático
 
-## ¿Cómo se ve "lo bueno"?
+## Cómo debe ser "correcto"
 
-La CLI imprime un mensaje legible por humanos con una estructura predecible:
+La CLI imprime un mensaje legible para humanos con una estructura predecible:
 
 ```
 [ERROR] Title (ID: ...)
@@ -90,29 +92,41 @@ Fix:
 
 La CLI también emite JSON `cli.error.v0.1` válido para su procesamiento automático.
 
-- `a11y-assist` nunca reescribe la salida original; agrega un bloque ASSIST.
-- Se sugieren comandos SOLO-SAFE (y solo cuando están presentes en la entrada).
+- `a11y-assist` nunca modifica la salida original; simplemente agrega un bloque ASSIST.
+- Se sugieren comandos "SAFE" (y solo cuando están presentes en la entrada).
 
 ## Notas de diseño
 
 Esta demostración emite intencionalmente:
 
-- Un espacio de nombres `id` estable (DEMO.*)
-- Líneas que incluyen un comando "Re-run:" que contiene `--dry-run` (SAFE)
+- Un espacio de nombres de ID estable (DEMO.*)
+- Líneas que incluyen un comando "Re-run:" con `--dry-run` (SAFE)
 
 Esto facilita la prueba de todo el flujo de trabajo de extremo a extremo.
 
-## Adopte Ally en 10 minutos (para autores de herramientas)
+## Integre Ally en 10 minutos (para autores de herramientas)
 
-1. Emita JSON `cli.error.v0.1` en caso de error (salida para máquinas).
-2. Imprima el mismo contenido en una estructura de texto predecible (salida para humanos).
+1. Emita JSON `cli.error.v0.1` en caso de error (salida para máquinas)
+2. Imprima el mismo contenido en una estructura de texto predecible (salida para humanos)
 3. Agregue CI:
 - `a11y-lint validate <message.json>`
-- `a11y-ci gate` para obtener puntuaciones si analiza la salida de texto.
+- `a11y-ci gate` para obtener puntuaciones si analiza la salida de texto
 4. Informe a los usuarios:
 - `a11y-assist explain --json <file>`
-- o primero con un envoltorio: `assist-run <command>` y luego `a11y-assist last`
+- o utilice un envoltorio: `assist-run <command>` y luego `a11y-assist last`
+
+## Seguridad y privacidad
+
+**Datos accedidos:** solo escenarios de error de demostración; no se leen ni escriben datos reales, excepto la salida opcional del archivo `--json-out`.
+
+**Datos NO accedidos:** no se utilizan credenciales de usuario, ni archivos del sistema, ni se realizan llamadas de red (todos los errores son simulados). No se recopila ni se envía telemetría.
+
+**Permisos:** solo escritura en el sistema de archivos para la ruta especificada por el usuario con `--json-out`. Consulte [SECURITY.md](SECURITY.md) para obtener la política completa.
 
 ## Licencia
 
 MIT
+
+---
+
+Creado por <a href="https://mcp-tool-shop.github.io/">MCP Tool Shop</a>

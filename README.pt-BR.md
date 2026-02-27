@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
+  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.md">English</a>
 </p>
 
 <p align="center">
@@ -8,19 +8,21 @@
 
 <p align="center">
   <a href="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/ally-demo-python/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python"><img src="https://codecov.io/gh/mcp-tool-shop-org/ally-demo-python/branch/main/graph/badge.svg" alt="codecov"></a>
+  <a href="https://pypi.org/project/ally-demo-python/"><img src="https://img.shields.io/pypi/v/ally-demo-python" alt="PyPI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT License"></a>
   <a href="https://mcp-tool-shop-org.github.io/ally-demo-python/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page"></a>
 </p>
 
-Uma interface de linha de comando (CLI) em Python, minimalista, que emite `cli.error.v0.1` (dados de referência) e demonstra todo o pipeline do Ally:
+Uma interface de linha de comando (CLI) em Python, minimalista, que emite **cli.error.v0.1** (dados de referência) e demonstra todo o pipeline do Ally:
 
 - `a11y-assist` (perfis: baixa visão, carga cognitiva, leitor de tela, dislexia, linguagem simples)
-- `a11y-lint` (validação + análise)
+- `a11y-lint` (validação + verificação)
 - `a11y-ci` (controle de qualidade)
 
 Este repositório é intencionalmente pequeno e simples. É uma integração de referência.
 
-## Início rápido
+## Como começar
 
 ```bash
 python -m venv .venv
@@ -53,12 +55,12 @@ Valide o contrato da mensagem:
 a11y-lint validate /tmp/cli_error.json
 ```
 
-## Cenários de erro disponíveis
+## Cenários de Erro Disponíveis
 
 A CLI de demonstração inclui vários cenários de erro para demonstrar diferentes padrões:
 
-| Comando | ID do erro | Descrição |
-| --------- | ---------- | ------------- |
+| Comando | ID do Erro | Descrição |
+|---------|----------|-------------|
 | `demo-cli network-timeout` | DEMO.NETWORK.TIMEOUT | Tempo limite da requisição HTTP |
 | `demo-cli config-missing` | DEMO.CONFIG.MISSING | Arquivo de configuração ausente |
 | `demo-cli auth-failed` | DEMO.AUTH.INVALID_TOKEN | Falha na autenticação |
@@ -68,7 +70,7 @@ A CLI de demonstração inclui vários cenários de erro para demonstrar diferen
 Cada comando:
 - Imprime uma saída legível para o terminal (stdout)
 - Escreve JSON no caminho especificado com `--json-out`
-- Emite JSON para o fluxo de erro padrão (stderr) para captura por máquinas
+- Emite JSON para o fluxo de erro padrão (stderr) para captura por sistemas automatizados
 
 ## Como deve ser
 
@@ -88,31 +90,43 @@ Fix:
   Re-run: command --dry-run
 ```
 
-A CLI também emite JSON `cli.error.v0.1` válido para captura por máquinas.
+A CLI também emite JSON `cli.error.v0.1` válido para captura por sistemas automatizados.
 
-- `a11y-assist` nunca reescreve a saída original; ele adiciona um bloco ASSIST.
+- `a11y-assist` nunca modifica a saída original; ele adiciona um bloco ASSIST.
 - Apenas comandos "SAFE" são sugeridos (e apenas quando presentes na entrada).
 
 ## Notas de design
 
 Esta demonstração emite intencionalmente:
 
-- Um namespace `id` estável (DEMO.*)
-- Linhas de correção que incluem um comando "Re-run:" contendo `--dry-run` (SAFE)
+- Um namespace de ID estável (DEMO.*)
+- Linhas que incluem um comando "Re-run:" contendo `--dry-run` (SAFE)
 
 Isso facilita o teste de todo o pipeline de ponta a ponta.
 
 ## Adote o Ally em 10 minutos (para autores de ferramentas)
 
-1. Emita JSON `cli.error.v0.1` em caso de falha (saída para máquinas)
+1. Emita JSON `cli.error.v0.1` em caso de falha (saída para sistemas automatizados)
 2. Imprima o mesmo conteúdo em uma estrutura de texto previsível (saída para humanos)
 3. Adicione o controle de qualidade (CI):
 - `a11y-lint validate <message.json>`
-- `a11y-ci gate` para "scorecards" se você validar a saída de texto
+- `a11y-ci gate` para gerar relatórios se você validar a saída de texto
 4. Informe aos usuários:
-- `a11y-assist explain --json <file>`
+- `a11y-assist explain --json <arquivo>`
 - ou use um wrapper: `assist-run <comando>` e depois `a11y-assist last`
+
+## Segurança e Privacidade
+
+**Dados acessados:** apenas cenários de erro de demonstração — nenhum dado real é lido ou escrito, exceto a saída opcional do arquivo JSON especificado com `--json-out`.
+
+**Dados NÃO acessados:** nenhuma credencial de usuário, nenhum arquivo do sistema, nenhuma chamada de rede (todos os erros são simulados). Nenhuma telemetria é coletada ou enviada.
+
+**Permissões:** apenas permissão de escrita no sistema de arquivos para o caminho especificado pelo usuário com `--json-out`. Consulte [SECURITY.md](SECURITY.md) para a política completa.
 
 ## Licença
 
 MIT
+
+---
+
+Criado por <a href="https://mcp-tool-shop.github.io/">MCP Tool Shop</a>
