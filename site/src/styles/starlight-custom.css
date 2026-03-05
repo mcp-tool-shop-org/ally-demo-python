@@ -1,0 +1,14 @@
+/* Emerald accent for Starlight */
+
+:root {
+  /* Dark mode */
+  --sl-color-accent-low: hsl(160, 50%, 15%);
+  --sl-color-accent: hsl(160, 84%, 39%);
+  --sl-color-accent-high: hsl(160, 70%, 80%);
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-high: hsl(160, 60%, 22%);
+  --sl-color-accent: hsl(160, 84%, 39%);
+  --sl-color-accent-low: hsl(160, 64%, 90%);
+}

@@ -14,7 +14,7 @@ export const config: SiteConfig = {
     headlineAccent: 'Python.',
     description: 'A minimal CLI that emits structured error messages and demonstrates the full Ally pipeline — a11y-assist, a11y-lint, and a11y-ci working together.',
     primaryCta: { href: '#quick-start', label: 'Get started' },
-    secondaryCta: { href: '#features', label: 'Learn more' },
+    secondaryCta: { href: 'handbook/', label: 'Read the Handbook' },
     previews: [
       { label: 'Install', code: 'pip install -e .' },
       { label: 'Emit', code: 'demo-cli network-timeout --json-out error.json' },
